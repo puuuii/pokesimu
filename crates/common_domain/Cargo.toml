@@ -1,0 +1,3 @@
+[package]
+name = "common_domain"
+edition = "2024"

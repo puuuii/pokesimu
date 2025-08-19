@@ -4,3 +4,16 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+serde_json.workspace = true
+
+[workspace]
+members = [
+    "crates/battle_context",
+    "crates/pokedex_context",
+    "crates/common_domain",
+]
+
+[workspace.dependencies]
+serde_json = "1.0.142"
+anyhow = "1.0.99"
+serde = { version = "1.0", features = ["derive"] }

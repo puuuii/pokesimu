@@ -1,0 +1,3 @@
+[package]
+name = "battle_context"
+edition = "2024"

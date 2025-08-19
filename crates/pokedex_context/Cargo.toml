@@ -1,0 +1,10 @@
+[package]
+name = "pokedex_context"
+edition = "2024"
+
+[dependencies]
+serde_json = { workspace = true }
+serde = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3.20.0"
