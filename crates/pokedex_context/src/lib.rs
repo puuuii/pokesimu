@@ -1,5 +1,6 @@
 pub mod domain {
     pub mod ability;
+    pub mod item;
     pub mod repositories;
 }
 pub mod infrastructure {
