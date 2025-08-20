@@ -1,6 +1,7 @@
 pub mod domain {
     pub mod ability;
     pub mod item;
+    pub mod moves;
     pub mod repositories;
 }
 pub mod infrastructure {

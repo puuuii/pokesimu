@@ -4,6 +4,7 @@ use std::path::PathBuf;
 
 use crate::domain::ability::Ability;
 use crate::domain::item::Item;
+use crate::domain::moves::Move;
 use crate::domain::repositories::IPokedexRepository;
 
 pub struct JsonPokedexRepository {
@@ -58,6 +59,27 @@ impl IPokedexRepository for JsonPokedexRepository {
 
         items
     }
+
+    fn load_all_moves(&self) -> Vec<Move> {
+        let move_dir = self.data_path.join("move");
+        let entries = fs::read_dir(&move_dir).unwrap();
+        let mut moves = Vec::new();
+
+        for entry in entries {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|s| s.to_str()) == Some("json") {
+                let data = fs::read_to_string(&path).unwrap();
+                match serde_json::from_str::<Move>(&data) {
+                    Ok(move_data) => moves.push(move_data),
+                    Err(e) => {
+                        eprintln!("Failed to parse move file {:?}: {}", path, e);
+                    }
+                }
+            }
+        }
+
+        moves
+    }
 }
 
 #[cfg(test)]
@@ -90,5 +112,19 @@ mod tests {
         // then
         println!("Successfully loaded {} items", results.len());
         println!("{:#?}", results[200]);
+    }
+
+    #[test]
+    fn test_load_all_moves() {
+        // given
+        let data_path = PathBuf::from("../../data/");
+        let repository = JsonPokedexRepository::new(data_path);
+
+        // when
+        let results = repository.load_all_moves();
+
+        // then
+        println!("Successfully loaded {} moves", results.len());
+        println!("{:#?}", results[50]);
     }
 }
