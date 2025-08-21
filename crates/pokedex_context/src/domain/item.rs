@@ -72,7 +72,7 @@ pub struct ItemSprites {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FlingEffect {
-    pub name: String,
+    pub name: FlingEffectType,
     pub url: String,
 }
 
@@ -92,12 +92,12 @@ pub struct PokemonReference {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VersionDetail {
     pub rarity: u32,
-    pub version: Version,
+    pub version: VersionReference,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Version {
-    pub name: String,
+pub struct VersionReference {
+    pub name: Version,
     pub url: String,
 }
 
@@ -252,6 +252,7 @@ pub enum VersionGroup {
     #[serde(rename = "black-2-white-2")]
     Black2White2,
     BlackWhite,
+    Colosseum,
     Crystal,
     DiamondPearl,
     Emerald,
@@ -260,11 +261,76 @@ pub enum VersionGroup {
     HeartgoldSoulsilver,
     #[serde(rename = "lets-go-pikachu-lets-go-eevee")]
     LetsGoPikachuLetsGoEevee,
+    #[serde(rename = "legends-arceus")]
+    LegendsArceus,
     Platinum,
     RubySapphire,
+    #[serde(rename = "scarlet-violet")]
+    ScarletViolet,
     SunMoon,
     SwordShield,
     #[serde(rename = "ultra-sun-ultra-moon")]
     UltraSunUltraMoon,
     XY,
+}
+
+// FlingEffectType enum - 7 variants
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum FlingEffectType {
+    BadlyPoison,
+    BerryEffect,
+    Burn,
+    Flinch,
+    HerbEffect,
+    Paralyze,
+    Poison,
+}
+
+// Version enum - 22 variants
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash, Copy)]
+#[serde(rename_all = "kebab-case")]
+pub enum Version {
+    AlphaSapphire,
+    Black,
+    Black2,
+    Black2White2,
+    BlackWhite,
+    BrilliantDiamondAndShiningPearl,
+    Colosseum,
+    Crystal,
+    Diamond,
+    DiamondPearl,
+    Emerald,
+    Firered,
+    FireredLeafgreen,
+    GoldSilver,
+    Heartgold,
+    HeartgoldSoulsilver,
+    Leafgreen,
+    LegendsArceus,
+    LetsGoPikachuLetsGoEevee,
+    Moon,
+    OmegaRuby,
+    OmegaRubyAlphaSapphire,
+    Pearl,
+    Platinum,
+    RedBlue,
+    Ruby,
+    RubySapphire,
+    Sapphire,
+    ScarletViolet,
+    Soulsilver,
+    Sun,
+    SunMoon,
+    SwordShield,
+    TheIndigoDisk,
+    TheTealMask,
+    UltraSun,
+    UltraSunUltraMoon,
+    White,
+    White2,
+    X,
+    XY,
+    Y,
 }
