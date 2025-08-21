@@ -7,6 +7,7 @@ use crate::domain::ability::Ability;
 use crate::domain::item::Item;
 use crate::domain::moves::Move;
 use crate::domain::pokemon::Pokemon;
+use crate::domain::pokemon_species::PokemonSpecies;
 use crate::domain::repositories::IPokedexRepository;
 
 pub struct JsonPokedexRepository {
@@ -58,6 +59,10 @@ impl IPokedexRepository for JsonPokedexRepository {
 
     fn load_all_pokemon(&self) -> Vec<Pokemon> {
         self.load_all_from_directory("pokemon")
+    }
+
+    fn load_all_pokemon_species(&self) -> Vec<PokemonSpecies> {
+        self.load_all_from_directory("pokemon-species")
     }
 }
 
@@ -118,6 +123,20 @@ mod tests {
 
         // then
         println!("Successfully loaded {} pokemon", results.len());
+        println!("{:#?}", results[100]);
+    }
+
+    #[test]
+    fn test_load_all_pokemon_species() {
+        // given
+        let data_path = PathBuf::from("../../data/");
+        let repository = JsonPokedexRepository::new(data_path);
+
+        // when
+        let results = repository.load_all_pokemon_species();
+
+        // then
+        println!("Successfully loaded {} pokemon species", results.len());
         println!("{:#?}", results[100]);
     }
 }

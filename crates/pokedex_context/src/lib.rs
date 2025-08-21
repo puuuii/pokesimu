@@ -4,6 +4,7 @@ pub mod domain {
     pub mod item;
     pub mod moves;
     pub mod pokemon;
+    pub mod pokemon_species;
     pub mod repositories;
 }
 pub mod infrastructure {

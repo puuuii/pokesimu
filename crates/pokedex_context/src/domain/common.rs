@@ -1,7 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-/// 共通のreference構造体
-
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct LanguageReference {
     pub name: Language,
@@ -56,6 +54,7 @@ pub enum Language {
     #[serde(rename = "ja-Hrkt")]
     JaHrkt,
     Ko,
+    Roomaji,
     #[serde(rename = "zh-Hans")]
     ZhHans,
     #[serde(rename = "zh-Hant")]
@@ -95,33 +94,61 @@ pub enum VersionGroup {
     BrilliantDiamondAndShiningPearl,
     Colosseum,
     Crystal,
+    Diamond,
     DiamondPearl,
     Emerald,
+    Firered,
     FireredLeafgreen,
+    Gold,
     GoldSilver,
+    Heartgold,
     HeartgoldSoulsilver,
+    Leafgreen,
     #[serde(rename = "lets-go-pikachu-lets-go-eevee")]
     LetsGoPikachuLetsGoEevee,
+    #[serde(rename = "lets-go-pikachu")]
+    LetsGoPikachu,
+    #[serde(rename = "lets-go-eevee")]
+    LetsGoEevee,
     #[serde(rename = "legends-arceus")]
     LegendsArceus,
+    Moon,
+    OmegaRuby,
     OmegaRubyAlphaSapphire,
+    Pearl,
     Platinum,
+    Red,
     #[serde(rename = "red-blue")]
     RedBlue,
+    Ruby,
     RubySapphire,
+    Sapphire,
+    Scarlet,
     #[serde(rename = "scarlet-violet")]
     ScarletViolet,
+    Shield,
+    Soulsilver,
+    Sun,
     SunMoon,
+    Sword,
     SwordShield,
     #[serde(rename = "the-indigo-disk")]
     TheIndigoDisk,
     #[serde(rename = "the-teal-mask")]
     TheTealMask,
+    UltraMoon,
+    UltraSun,
     #[serde(rename = "ultra-sun-ultra-moon")]
     UltraSunUltraMoon,
+    Violet,
+    White,
+    #[serde(rename = "white-2")]
+    White2,
+    X,
     Xd,
     #[serde(rename = "x-y")]
     XY,
+    Y,
     Yellow,
 }
 
@@ -143,6 +170,7 @@ pub enum Version {
     Emerald,
     Firered,
     FireredLeafgreen,
+    Gold,
     GoldSilver,
     Heartgold,
     HeartgoldSoulsilver,
@@ -154,14 +182,18 @@ pub enum Version {
     OmegaRubyAlphaSapphire,
     Pearl,
     Platinum,
+    Red,
     RedBlue,
     Ruby,
     RubySapphire,
     Sapphire,
+    Scarlet,
     ScarletViolet,
+    Shield,
     Soulsilver,
     Sun,
     SunMoon,
+    Sword,
     SwordShield,
     TheIndigoDisk,
     TheTealMask,
@@ -169,6 +201,7 @@ pub enum Version {
     UltraMoon,
     UltraSun,
     UltraSunUltraMoon,
+    Violet,
     White,
     #[serde(rename = "white-2")]
     White2,
@@ -202,4 +235,93 @@ pub enum PokemonType {
     Shadow,
     Steel,
     Water,
+}
+
+// Pokemon-related enums
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum PokemonColor {
+    Black,
+    Blue,
+    Brown,
+    Gray,
+    Green,
+    Pink,
+    Purple,
+    Red,
+    White,
+    Yellow,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum PokemonShape {
+    Armor,
+    Arms,
+    Ball,
+    Blob,
+    #[serde(rename = "bug-wings")]
+    BugWings,
+    Fish,
+    Heads,
+    Humanoid,
+    Legs,
+    Quadruped,
+    Squiggle,
+    Tentacles,
+    Upright,
+    Wings,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum PokemonHabitat {
+    Cave,
+    Forest,
+    Grassland,
+    Mountain,
+    Rare,
+    #[serde(rename = "rough-terrain")]
+    RoughTerrain,
+    Sea,
+    Urban,
+    #[serde(rename = "waters-edge")]
+    WatersEdge,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum GrowthRate {
+    Fast,
+    #[serde(rename = "fast-then-very-slow")]
+    FastThenVerySlow,
+    Medium,
+    #[serde(rename = "medium-slow")]
+    MediumSlow,
+    Slow,
+    #[serde(rename = "slow-then-very-fast")]
+    SlowThenVeryFast,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum PalParkArea {
+    Field,
+    Forest,
+    Mountain,
+    Pond,
+    Sea,
+}
+
+// Common reference structures
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct VersionReference {
+    pub name: Version,
+    pub url: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct PokemonReference {
+    pub name: String,
+    pub url: String,
 }
