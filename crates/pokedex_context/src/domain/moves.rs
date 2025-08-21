@@ -1,3 +1,5 @@
+use super::common::{GenerationReference, Name, LanguageReference, EffectEntry, VersionGroupReference, Generation, Language, VersionGroup};
+
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Move {
     pub accuracy: Option<u8>,
@@ -70,23 +72,10 @@ pub struct EffectChange {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct EffectEntry {
-    pub effect: String,
-    pub language: LanguageReference,
-    pub short_effect: Option<String>,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct FlavorTextEntry {
     pub flavor_text: String,
     pub language: LanguageReference,
     pub version_group: VersionGroupReference,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct GenerationReference {
-    pub name: Generation,
-    pub url: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
@@ -131,24 +120,6 @@ pub struct AilmentReference {
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct CategoryReference {
     pub name: Category,
-    pub url: String,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct Name {
-    pub language: LanguageReference,
-    pub name: String,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct LanguageReference {
-    pub name: Language,
-    pub url: String,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub struct VersionGroupReference {
-    pub name: VersionGroup,
     pub url: String,
 }
 
@@ -200,72 +171,6 @@ pub enum DamageClass {
     Physical,
     Special,
     Status,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum Generation {
-    #[serde(rename = "generation-i")]
-    GenerationI,
-    #[serde(rename = "generation-ii")]
-    GenerationII,
-    #[serde(rename = "generation-iii")]
-    GenerationIII,
-    #[serde(rename = "generation-iv")]
-    GenerationIV,
-    #[serde(rename = "generation-v")]
-    GenerationV,
-    #[serde(rename = "generation-vi")]
-    GenerationVI,
-    #[serde(rename = "generation-vii")]
-    GenerationVII,
-    #[serde(rename = "generation-viii")]
-    GenerationVIII,
-    #[serde(rename = "generation-ix")]
-    GenerationIX,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum Language {
-    De,
-    En,
-    Es,
-    Fr,
-    It,
-    Ja,
-    #[serde(rename = "ja-Hrkt")]
-    JaHrkt,
-    Ko,
-    #[serde(rename = "zh-Hans")]
-    ZhHans,
-    #[serde(rename = "zh-Hant")]
-    ZhHant,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum VersionGroup {
-    #[serde(rename = "black-2-white-2")]
-    Black2White2,
-    BlackWhite,
-    Crystal,
-    DiamondPearl,
-    Emerald,
-    FireredLeafgreen,
-    GoldSilver,
-    HeartgoldSoulsilver,
-    LegendsArceus,
-    LetsGoPikachuLetsGoEevee,
-    OmegaRubyAlphaSapphire,
-    Platinum,
-    RubySapphire,
-    ScarletViolet,
-    SunMoon,
-    SwordShield,
-    UltraSunUltraMoon,
-    #[serde(rename = "x-y")]
-    XY,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]

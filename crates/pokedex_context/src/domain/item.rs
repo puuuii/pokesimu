@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use super::common::{LanguageReference, VersionGroupReference, Name, GenerationReference, RequiredShortEffectEntry, Version};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Item {
@@ -7,7 +8,7 @@ pub struct Item {
     pub cost: u32,
     pub category: ItemCategoryReference,
     pub attributes: Vec<ItemAttributeReference>,
-    pub effect_entries: Vec<EffectEntry>,
+    pub effect_entries: Vec<RequiredShortEffectEntry>,
     pub flavor_text_entries: Vec<FlavorTextEntry>,
     pub names: Vec<Name>,
     pub sprites: ItemSprites,
@@ -32,37 +33,11 @@ pub struct ItemAttributeReference {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct EffectEntry {
-    pub effect: String,
-    #[serde(rename = "short_effect")]
-    pub short_effect: String,
-    pub language: LanguageReference,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FlavorTextEntry {
     pub text: String,
     pub language: LanguageReference,
     #[serde(rename = "version_group")]
     pub version_group: VersionGroupReference,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Name {
-    pub name: String,
-    pub language: LanguageReference,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LanguageReference {
-    pub name: Language,
-    pub url: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct VersionGroupReference {
-    pub name: VersionGroup,
-    pub url: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -106,12 +81,6 @@ pub struct GameIndex {
     #[serde(rename = "game_index")]
     pub game_index: u32,
     pub generation: GenerationReference,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct GenerationReference {
-    pub name: Generation,
-    pub url: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -204,76 +173,6 @@ pub enum ItemAttribute {
     UsableOverworld,
 }
 
-// Re-use enums from moves/ability domain
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum Generation {
-    #[serde(rename = "generation-i")]
-    GenerationI,
-    #[serde(rename = "generation-ii")]
-    GenerationII,
-    #[serde(rename = "generation-iii")]
-    GenerationIII,
-    #[serde(rename = "generation-iv")]
-    GenerationIV,
-    #[serde(rename = "generation-v")]
-    GenerationV,
-    #[serde(rename = "generation-vi")]
-    GenerationVI,
-    #[serde(rename = "generation-vii")]
-    GenerationVII,
-    #[serde(rename = "generation-viii")]
-    GenerationVIII,
-    #[serde(rename = "generation-ix")]
-    GenerationIX,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum Language {
-    De,
-    En,
-    Es,
-    Fr,
-    It,
-    Ja,
-    #[serde(rename = "ja-Hrkt")]
-    JaHrkt,
-    Ko,
-    #[serde(rename = "zh-Hans")]
-    ZhHans,
-    #[serde(rename = "zh-Hant")]
-    ZhHant,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(rename_all = "kebab-case")]
-pub enum VersionGroup {
-    #[serde(rename = "black-2-white-2")]
-    Black2White2,
-    BlackWhite,
-    Colosseum,
-    Crystal,
-    DiamondPearl,
-    Emerald,
-    FireredLeafgreen,
-    GoldSilver,
-    HeartgoldSoulsilver,
-    #[serde(rename = "lets-go-pikachu-lets-go-eevee")]
-    LetsGoPikachuLetsGoEevee,
-    #[serde(rename = "legends-arceus")]
-    LegendsArceus,
-    Platinum,
-    RubySapphire,
-    #[serde(rename = "scarlet-violet")]
-    ScarletViolet,
-    SunMoon,
-    SwordShield,
-    #[serde(rename = "ultra-sun-ultra-moon")]
-    UltraSunUltraMoon,
-    XY,
-}
-
 // FlingEffectType enum - 7 variants
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "kebab-case")]
@@ -285,52 +184,4 @@ pub enum FlingEffectType {
     HerbEffect,
     Paralyze,
     Poison,
-}
-
-// Version enum - 22 variants
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash, Copy)]
-#[serde(rename_all = "kebab-case")]
-pub enum Version {
-    AlphaSapphire,
-    Black,
-    Black2,
-    Black2White2,
-    BlackWhite,
-    BrilliantDiamondAndShiningPearl,
-    Colosseum,
-    Crystal,
-    Diamond,
-    DiamondPearl,
-    Emerald,
-    Firered,
-    FireredLeafgreen,
-    GoldSilver,
-    Heartgold,
-    HeartgoldSoulsilver,
-    Leafgreen,
-    LegendsArceus,
-    LetsGoPikachuLetsGoEevee,
-    Moon,
-    OmegaRuby,
-    OmegaRubyAlphaSapphire,
-    Pearl,
-    Platinum,
-    RedBlue,
-    Ruby,
-    RubySapphire,
-    Sapphire,
-    ScarletViolet,
-    Soulsilver,
-    Sun,
-    SunMoon,
-    SwordShield,
-    TheIndigoDisk,
-    TheTealMask,
-    UltraSun,
-    UltraSunUltraMoon,
-    White,
-    White2,
-    X,
-    XY,
-    Y,
 }

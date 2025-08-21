@@ -1,4 +1,5 @@
 pub mod domain {
+    pub mod common;
     pub mod ability;
     pub mod item;
     pub mod moves;
