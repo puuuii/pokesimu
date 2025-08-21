@@ -1,6 +1,5 @@
 use super::common::{
-    EffectEntry, GenerationReference, LanguageReference, Name, PokemonType, Version,
-    VersionGroupReference,
+    GenerationReference, PokemonType as PokemonTypeEnum, Version, VersionGroupReference,
 };
 use serde::{Deserialize, Serialize};
 
@@ -23,7 +22,7 @@ pub struct Pokemon {
     pub sprites: PokemonSprites,
     pub species: PokemonSpeciesReference,
     pub stats: Vec<PokemonStat>,
-    pub types: Vec<PokemonType>,
+    pub types: Vec<PokemonTypeSlot>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -104,7 +103,7 @@ pub struct MoveLearnMethodReference {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct PokemonTypePast {
     pub generation: GenerationReference,
-    pub types: Vec<PokemonType>,
+    pub types: Vec<PokemonTypeSlot>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -205,7 +204,7 @@ pub struct StatReference {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-pub struct PokemonType {
+pub struct PokemonTypeSlot {
     pub slot: u32,
     #[serde(rename = "type")]
     pub type_ref: TypeReference,
@@ -213,7 +212,7 @@ pub struct PokemonType {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct TypeReference {
-    pub name: PokemonType,
+    pub name: PokemonTypeEnum,
     pub url: String,
 }
 

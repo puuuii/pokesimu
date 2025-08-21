@@ -91,6 +91,8 @@ pub enum VersionGroup {
     #[serde(rename = "black-2-white-2")]
     Black2White2,
     BlackWhite,
+    #[serde(rename = "brilliant-diamond-and-shining-pearl")]
+    BrilliantDiamondAndShiningPearl,
     Colosseum,
     Crystal,
     DiamondPearl,
@@ -104,24 +106,33 @@ pub enum VersionGroup {
     LegendsArceus,
     OmegaRubyAlphaSapphire,
     Platinum,
+    #[serde(rename = "red-blue")]
+    RedBlue,
     RubySapphire,
     #[serde(rename = "scarlet-violet")]
     ScarletViolet,
     SunMoon,
     SwordShield,
+    #[serde(rename = "the-indigo-disk")]
+    TheIndigoDisk,
+    #[serde(rename = "the-teal-mask")]
+    TheTealMask,
     #[serde(rename = "ultra-sun-ultra-moon")]
     UltraSunUltraMoon,
+    Xd,
     #[serde(rename = "x-y")]
     XY,
+    Yellow,
 }
 
-// Version enum - 22 variants
+// Version enum - extended with missing variants
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash, Copy)]
 #[serde(rename_all = "kebab-case")]
 pub enum Version {
     AlphaSapphire,
-    Black,
+    #[serde(rename = "black-2")]
     Black2,
+    Black,
     Black2White2,
     BlackWhite,
     BrilliantDiamondAndShiningPearl,
@@ -154,11 +165,16 @@ pub enum Version {
     SwordShield,
     TheIndigoDisk,
     TheTealMask,
+    #[serde(rename = "ultra-moon")]
+    UltraMoon,
     UltraSun,
     UltraSunUltraMoon,
     White,
+    #[serde(rename = "white-2")]
     White2,
+    Xd,
     X,
+    #[serde(rename = "x-y")]
     XY,
     Y,
 }
