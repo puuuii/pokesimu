@@ -1,3 +1,4 @@
+use serde::de::DeserializeOwned;
 use serde_json;
 use std::fs;
 use std::path::PathBuf;
@@ -16,91 +17,47 @@ impl JsonPokedexRepository {
     pub fn new(data_path: PathBuf) -> Self {
         JsonPokedexRepository { data_path }
     }
+
+    fn load_all_from_directory<T>(&self, directory_name: &str) -> Vec<T>
+    where
+        T: DeserializeOwned,
+    {
+        let dir = self.data_path.join(directory_name);
+        let entries = fs::read_dir(&dir).unwrap();
+        let mut results = Vec::new();
+
+        for entry in entries {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|s| s.to_str()) == Some("json") {
+                let data = fs::read_to_string(&path).unwrap();
+                match serde_json::from_str::<T>(&data) {
+                    Ok(item) => results.push(item),
+                    Err(e) => {
+                        eprintln!("Failed to parse {} file {:?}: {}", directory_name, path, e);
+                    }
+                }
+            }
+        }
+
+        results
+    }
 }
 
 impl IPokedexRepository for JsonPokedexRepository {
     fn load_all_abilities(&self) -> Vec<Ability> {
-        let ability_dir = self.data_path.join("ability");
-        let entries = fs::read_dir(&ability_dir).unwrap();
-        let mut abilities = Vec::new();
-
-        for entry in entries {
-            let path = entry.unwrap().path();
-            if path.extension().and_then(|s| s.to_str()) == Some("json") {
-                let data = fs::read_to_string(&path).unwrap();
-                match serde_json::from_str::<Ability>(&data) {
-                    Ok(ability) => abilities.push(ability),
-                    Err(e) => {
-                        eprintln!("Failed to parse ability file {:?}: {}", path, e);
-                    }
-                }
-            }
-        }
-
-        abilities
+        self.load_all_from_directory("ability")
     }
 
     fn load_all_items(&self) -> Vec<Item> {
-        let item_dir = self.data_path.join("item");
-        let entries = fs::read_dir(&item_dir).unwrap();
-        let mut items = Vec::new();
-
-        for entry in entries {
-            let path = entry.unwrap().path();
-            if path.extension().and_then(|s| s.to_str()) == Some("json") {
-                let data = fs::read_to_string(&path).unwrap();
-                match serde_json::from_str::<Item>(&data) {
-                    Ok(item) => items.push(item),
-                    Err(e) => {
-                        eprintln!("Failed to parse item file {:?}: {}", path, e);
-                    }
-                }
-            }
-        }
-
-        items
+        self.load_all_from_directory("item")
     }
 
     fn load_all_moves(&self) -> Vec<Move> {
-        let move_dir = self.data_path.join("move");
-        let entries = fs::read_dir(&move_dir).unwrap();
-        let mut moves = Vec::new();
-
-        for entry in entries {
-            let path = entry.unwrap().path();
-            if path.extension().and_then(|s| s.to_str()) == Some("json") {
-                let data = fs::read_to_string(&path).unwrap();
-                match serde_json::from_str::<Move>(&data) {
-                    Ok(move_data) => moves.push(move_data),
-                    Err(e) => {
-                        eprintln!("Failed to parse move file {:?}: {}", path, e);
-                    }
-                }
-            }
-        }
-
-        moves
+        self.load_all_from_directory("move")
     }
 
     fn load_all_pokemon(&self) -> Vec<Pokemon> {
-        let pokemon_dir = self.data_path.join("pokemon");
-        let entries = fs::read_dir(&pokemon_dir).unwrap();
-        let mut pokemon = Vec::new();
-
-        for entry in entries {
-            let path = entry.unwrap().path();
-            if path.extension().and_then(|s| s.to_str()) == Some("json") {
-                let data = fs::read_to_string(&path).unwrap();
-                match serde_json::from_str::<Pokemon>(&data) {
-                    Ok(poke) => pokemon.push(poke),
-                    Err(e) => {
-                        eprintln!("Failed to parse pokemon file {:?}: {}", path, e);
-                    }
-                }
-            }
-        }
-
-        pokemon
+        self.load_all_from_directory("pokemon")
     }
 }
 
