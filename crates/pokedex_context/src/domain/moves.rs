@@ -1,4 +1,7 @@
-use super::common::{GenerationReference, Name, LanguageReference, EffectEntry, VersionGroupReference, Generation, Language, VersionGroup};
+use super::common::{
+    EffectEntry, Generation, GenerationReference, Language, LanguageReference, Name, VersionGroup,
+    VersionGroupReference,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Move {

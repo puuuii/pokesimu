@@ -1,4 +1,7 @@
-use super::common::{GenerationReference, LanguageReference, Name, VersionReference, PokemonReference, PokemonColor, PokemonShape, PokemonHabitat, GrowthRate, PalParkArea};
+use super::common::{
+    GenerationReference, GrowthRate, LanguageReference, Name, PalParkArea, PokemonColor,
+    PokemonHabitat, PokemonReference, PokemonShape, VersionReference,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -62,8 +65,6 @@ pub struct PalParkAreaReference {
     pub url: String,
 }
 
-
-
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct EggGroupReference {
     pub name: String,
@@ -88,8 +89,6 @@ pub struct FlavorTextEntry {
     pub version: VersionReference,
 }
 
-
-
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct FormDescription {
     pub description: String,
@@ -102,18 +101,12 @@ pub struct Genus {
     pub language: LanguageReference,
 }
 
-
-
-
-
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct PalParkEncounter {
     pub area: PalParkAreaReference,
     pub base_score: u32,
     pub rate: u32,
 }
-
-
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct PokedexNumber {
@@ -126,8 +119,6 @@ pub struct PokedexReference {
     pub name: String,
     pub url: String,
 }
-
-
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct PokemonVariety {

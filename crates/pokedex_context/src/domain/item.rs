@@ -1,5 +1,8 @@
+use super::common::{
+    GenerationReference, LanguageReference, Name, RequiredShortEffectEntry, Version,
+    VersionGroupReference,
+};
 use serde::{Deserialize, Serialize};
-use super::common::{LanguageReference, VersionGroupReference, Name, GenerationReference, RequiredShortEffectEntry, Version};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Item {
