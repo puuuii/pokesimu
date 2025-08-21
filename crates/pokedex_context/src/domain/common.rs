@@ -162,3 +162,28 @@ pub enum Version {
     XY,
     Y,
 }
+
+// 共通のPokemonType enum
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum PokemonType {
+    Bug,
+    Dark,
+    Dragon,
+    Electric,
+    Fairy,
+    Fighting,
+    Fire,
+    Flying,
+    Ghost,
+    Grass,
+    Ground,
+    Ice,
+    Normal,
+    Poison,
+    Psychic,
+    Rock,
+    Shadow,
+    Steel,
+    Water,
+}
