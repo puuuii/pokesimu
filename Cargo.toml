@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 serde_json.workspace = true
+pokedex_context = { path = "crates/pokedex_context" }
 
 [workspace]
 members = ["crates/battle_context", "crates/pokedex_context"]
