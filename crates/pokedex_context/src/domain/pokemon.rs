@@ -3,6 +3,48 @@ use super::common::{
 };
 use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum PokemonOrder {
+    Normal(u32),
+    Special, // -1 を表現
+}
+
+impl PokemonOrder {
+    pub fn from_i32(value: i32) -> Self {
+        if value == -1 {
+            PokemonOrder::Special
+        } else {
+            PokemonOrder::Normal(value as u32)
+        }
+    }
+
+    pub fn to_i32(&self) -> i32 {
+        match self {
+            PokemonOrder::Normal(n) => *n as i32,
+            PokemonOrder::Special => -1,
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PokemonOrder {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        let value = i32::deserialize(deserializer)?;
+        Ok(PokemonOrder::from_i32(value))
+    }
+}
+
+impl serde::ser::Serialize for PokemonOrder {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.to_i32().serialize(serializer)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Pokemon {
     pub id: u32,
@@ -10,7 +52,7 @@ pub struct Pokemon {
     pub base_experience: Option<u32>,
     pub height: u32,
     pub is_default: bool,
-    pub order: i32,
+    pub order: PokemonOrder,
     pub weight: u32,
     pub abilities: Vec<PokemonAbility>,
     pub forms: Vec<PokemonFormReference>,

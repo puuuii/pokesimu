@@ -4,6 +4,87 @@ use super::common::{
 };
 use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum GenderRate {
+    Genderless,     // -1
+    AlwaysMale,     // 0
+    Mostly1Female7, // 1 (1/8 female, 7/8 male)
+    Mostly2Female6, // 2 (2/8 female, 6/8 male)
+    Mostly3Female5, // 3 (3/8 female, 5/8 male)
+    Equal,          // 4 (4/8 female, 4/8 male)
+    Mostly5Female3, // 5 (5/8 female, 3/8 male)
+    Mostly6Female2, // 6 (6/8 female, 2/8 male)
+    Mostly7Female1, // 7 (7/8 female, 1/8 male)
+    AlwaysFemale,   // 8
+}
+
+impl GenderRate {
+    pub fn from_i32(value: i32) -> Result<Self, String> {
+        match value {
+            -1 => Ok(GenderRate::Genderless),
+            0 => Ok(GenderRate::AlwaysMale),
+            1 => Ok(GenderRate::Mostly1Female7),
+            2 => Ok(GenderRate::Mostly2Female6),
+            3 => Ok(GenderRate::Mostly3Female5),
+            4 => Ok(GenderRate::Equal),
+            5 => Ok(GenderRate::Mostly5Female3),
+            6 => Ok(GenderRate::Mostly6Female2),
+            7 => Ok(GenderRate::Mostly7Female1),
+            8 => Ok(GenderRate::AlwaysFemale),
+            _ => Err(format!("Invalid gender_rate value: {}", value)),
+        }
+    }
+
+    pub fn to_i32(&self) -> i32 {
+        match self {
+            GenderRate::Genderless => -1,
+            GenderRate::AlwaysMale => 0,
+            GenderRate::Mostly1Female7 => 1,
+            GenderRate::Mostly2Female6 => 2,
+            GenderRate::Mostly3Female5 => 3,
+            GenderRate::Equal => 4,
+            GenderRate::Mostly5Female3 => 5,
+            GenderRate::Mostly6Female2 => 6,
+            GenderRate::Mostly7Female1 => 7,
+            GenderRate::AlwaysFemale => 8,
+        }
+    }
+
+    pub fn female_probability(&self) -> Option<f64> {
+        match self {
+            GenderRate::Genderless => None,
+            GenderRate::AlwaysMale => Some(0.0),
+            GenderRate::Mostly1Female7 => Some(1.0 / 8.0),
+            GenderRate::Mostly2Female6 => Some(2.0 / 8.0),
+            GenderRate::Mostly3Female5 => Some(3.0 / 8.0),
+            GenderRate::Equal => Some(4.0 / 8.0),
+            GenderRate::Mostly5Female3 => Some(5.0 / 8.0),
+            GenderRate::Mostly6Female2 => Some(6.0 / 8.0),
+            GenderRate::Mostly7Female1 => Some(7.0 / 8.0),
+            GenderRate::AlwaysFemale => Some(1.0),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for GenderRate {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        let value = i32::deserialize(deserializer)?;
+        GenderRate::from_i32(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl serde::ser::Serialize for GenderRate {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.to_i32().serialize(serializer)
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct PokemonSpecies {
     pub id: u32,
@@ -17,7 +98,7 @@ pub struct PokemonSpecies {
     pub flavor_text_entries: Vec<FlavorTextEntry>,
     pub form_descriptions: Vec<FormDescription>,
     pub forms_switchable: bool,
-    pub gender_rate: i32,
+    pub gender_rate: GenderRate,
     pub genera: Vec<Genus>,
     pub generation: GenerationReference,
     pub growth_rate: GrowthRateReference,
