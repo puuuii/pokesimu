@@ -107,6 +107,7 @@ pub enum VersionGroup {
     #[serde(rename = "black-2-white-2")]
     Black2White2,
     BlackWhite,
+    Blue,
     #[serde(rename = "brilliant-diamond-and-shining-pearl")]
     BrilliantDiamondAndShiningPearl,
     Colosseum,
@@ -121,14 +122,14 @@ pub enum VersionGroup {
     Heartgold,
     HeartgoldSoulsilver,
     Leafgreen,
-    #[serde(rename = "lets-go-pikachu-lets-go-eevee")]
-    LetsGoPikachuLetsGoEevee,
-    #[serde(rename = "lets-go-pikachu")]
-    LetsGoPikachu,
-    #[serde(rename = "lets-go-eevee")]
-    LetsGoEevee,
     #[serde(rename = "legends-arceus")]
     LegendsArceus,
+    #[serde(rename = "lets-go-eevee")]
+    LetsGoEevee,
+    #[serde(rename = "lets-go-pikachu")]
+    LetsGoPikachu,
+    #[serde(rename = "lets-go-pikachu-lets-go-eevee")]
+    LetsGoPikachuLetsGoEevee,
     Moon,
     OmegaRuby,
     OmegaRubyAlphaSapphire,
@@ -144,6 +145,7 @@ pub enum VersionGroup {
     #[serde(rename = "scarlet-violet")]
     ScarletViolet,
     Shield,
+    Silver,
     Soulsilver,
     Sun,
     SunMoon,
@@ -179,6 +181,7 @@ pub enum Version {
     Black,
     Black2White2,
     BlackWhite,
+    Blue,
     BrilliantDiamondAndShiningPearl,
     Colosseum,
     Crystal,
@@ -193,6 +196,10 @@ pub enum Version {
     HeartgoldSoulsilver,
     Leafgreen,
     LegendsArceus,
+    #[serde(rename = "lets-go-eevee")]
+    LetsGoEevee,
+    #[serde(rename = "lets-go-pikachu")]
+    LetsGoPikachu,
     LetsGoPikachuLetsGoEevee,
     Moon,
     OmegaRuby,
@@ -207,6 +214,7 @@ pub enum Version {
     Scarlet,
     ScarletViolet,
     Shield,
+    Silver,
     Soulsilver,
     Sun,
     SunMoon,
@@ -227,6 +235,7 @@ pub enum Version {
     #[serde(rename = "x-y")]
     XY,
     Y,
+    Yellow,
 }
 
 // 共通のPokemonType enum
@@ -250,7 +259,9 @@ pub enum PokemonType {
     Psychic,
     Rock,
     Shadow,
+    Stellar,
     Steel,
+    Unknown,
     Water,
 }
 

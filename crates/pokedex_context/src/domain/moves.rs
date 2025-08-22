@@ -279,7 +279,9 @@ pub enum PokemonType {
     Psychic,
     Rock,
     Shadow,
+    Stellar,
     Steel,
+    Unknown,
     Water,
 }
 

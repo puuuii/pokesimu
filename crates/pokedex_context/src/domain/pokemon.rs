@@ -10,7 +10,7 @@ pub struct Pokemon {
     pub base_experience: Option<u32>,
     pub height: u32,
     pub is_default: bool,
-    pub order: u32,
+    pub order: i32,
     pub weight: u32,
     pub abilities: Vec<PokemonAbility>,
     pub forms: Vec<PokemonFormReference>,
@@ -231,6 +231,8 @@ pub enum MoveLearnMethod {
     XdShadow,
     XdPurification,
     FormChange,
+    ZygardeCube,
+    StadiumSurfingPikachu,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
