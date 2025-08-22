@@ -6,6 +6,7 @@ pub mod domain {
     pub mod pokemon;
     pub mod pokemon_species;
     pub mod repositories;
+    pub mod r#type;
 }
 pub mod infrastructure {
     pub mod persistence {

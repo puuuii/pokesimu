@@ -1,4 +1,4 @@
-use super::common::{GenerationReference, LanguageReference, Name, RequiredShortEffectEntry};
+use super::common::{GenerationReference, Name, RequiredShortEffectEntry};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

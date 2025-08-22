@@ -1,6 +1,5 @@
 use super::common::{
-    EffectEntry, Generation, GenerationReference, Language, LanguageReference, Name, VersionGroup,
-    VersionGroupReference,
+    EffectEntry, GenerationReference, LanguageReference, Name, VersionGroupReference,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
